@@ -1,14 +1,14 @@
 ## For release new version
 # docker buildx create --use
-# docker buildx build --build-arg OPENSEARCH_VERSION=1.3.6 --platform linux/amd64,linux/arm64 -t karoid/opensearch-seunjeon:1.3.6.0 --push .
+# docker buildx build --build-arg OPENSEARCH_VERSION=1.3.6 --platform linux/amd64,linux/arm64 -t kiratraynor/opensearch-seunjeon:1.3.6.0 --push .
 
 ## For debugging command lines
-# docker run --rm -it --user root opensearchproject/opensearch:2.3.0 bash
+# docker run --rm -it --user root opensearchproject/opensearch:2.5.0 bash
 
-ARG OPENSEARCH_VERSION="2.3.0"
+ARG OPENSEARCH_VERSION="2.5.0"
 FROM opensearchproject/opensearch:$OPENSEARCH_VERSION
 ARG OPENSEARCH_VERSION
-ARG SEUNJEON_VERSION="2.3.0.0"
+ARG SEUNJEON_VERSION="2.5.0.0"
 
 RUN mkdir -p /tmp/build && cd /tmp/build
 
@@ -20,7 +20,7 @@ RUN yum install wget zip -y \
   && cd /tmp/build \
   && chmod 700 downloader.sh \
   && ./downloader.sh -e $OPENSEARCH_VERSION -p $SEUNJEON_VERSION \
-  && $(dirname $(which opensearch))/opensearch-plugin install file://`pwd`/opensearch-analysis-seunjeon-2.3.0.0.zip \
+  && $(dirname $(which opensearch))/opensearch-plugin install file://`pwd`/opensearch-analysis-seunjeon-2.5.0.0.zip \
   && rm -r /tmp/build \
   && yum remove wget zip -y
 USER opensearch

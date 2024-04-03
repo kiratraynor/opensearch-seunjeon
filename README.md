@@ -6,24 +6,24 @@ opensearch에 eunjeon plugin이 설치된 Docker image builder
 ## Making plugin
 ```bash
 # download plugin
-bash <(curl -s https://raw.githubusercontent.com/Karoid/opensearch-seunjeon/main/scripts/downloader.sh) -e <opensearch-version> -p <plugin-version>
-  에제) $ bash <(curl -s https://raw.githubusercontent.com/Karoid/opensearch-seunjeon/main/scripts/downloader.sh) -e 2.3.0 -p 2.3.0.0
+bash <(curl -s https://raw.githubusercontent.com/kiratraynor/opensearch-seunjeon/main/scripts/downloader.sh) -e <opensearch-version> -p <plugin-version>
+  에제) $ bash <(curl -s https://raw.githubusercontent.com/kiratraynor/opensearch-seunjeon/main/scripts/downloader.sh) -e 2.5.0 -p 2.5.0.0
 
 # install plugin
 $(dirname $(which opensearch))/opensearch-plugin install file://`pwd`/opensearch-analysis-seunjeon-<plugin-version>.zip
-  예제) $ $(dirname $(which opensearch))/opensearch-plugin install file://`pwd`/opensearch-analysis-seunjeon-2.3.0.0.zip
+  예제) $ $(dirname $(which opensearch))/opensearch-plugin install file://`pwd`/opensearch-analysis-seunjeon-2.5.0.0.zip
 ```
 * downloader.sh 가 하는 일은 opensearch-analysis-seunjeon-<plugin-version>.zip 파일을 내려받은 후 plugin-descriptor.properties 의 opensearch.version 을 변경하여 재압축합니다.
 * opensearch가 버전 업 될때마다 플러그인을 재배포하는데 어려움이 있어 스크립트를 제공합니다.
 ### Usable Plugin Release
 | opensearch-analysis-seunjeon | target opensearch | release note |
 | ------------------------------- | ---------------------| ------------ |
-| 2.3.0.0                         | 2.3.0                |  |
+| 2.5.0.0                         | 2.5.0                |  |
 
 ## docker 단독 사용
 docker hub에서 받아서 사용하는 경우
 ```bash
-docker run -d -p 9200:9200 --rm -v opensearch:/usr/share/opensearch/data -e "discovery.type=single-node" karoid/opensearch-seunjeon:2.3.0.0
+docker run -d -p 9200:9200 --rm -v opensearch:/usr/share/opensearch/data -e "discovery.type=single-node" kiratraynor/opensearch-seunjeon:2.5.0.0
 ```
 프로젝트로 빌드해서 사용하는 경우
 ```bash
@@ -55,7 +55,7 @@ services:
 | opensearch-analysis-seunjeon | target opensearch | release note |
 | ------------------------------- | ---------------------| ------------ |
 | 1.3.6.0                         | 1.3.6               | Compatible with opensearch 7.10 |
-| 2.3.0.0                         | 2.3.0                |  |
+| 2.5.0.0                         | 2.5.0                |  |
 
 # Testing
 도커의 경우 opensearch 컨테이너에 들어간다.
@@ -133,12 +133,12 @@ cd /tmp/build/seunjeon-opensearch && sbt
 sbt:opensearch-analysis-seunjeon> project opensearch
 sbt:opensearch-analysis-seunjeon> opensearchZip
 ```
-다음 명령이 성공하면 `build/opensearch-analysis-seunjeon/seunjeon-opensearch/opensearch/target/opensearch-analysis-seunjeon-assembly-2.3.0.jar`에 파일이 만들어진다
+다음 명령이 성공하면 `build/opensearch-analysis-seunjeon/seunjeon-opensearch/opensearch/target/opensearch-analysis-seunjeon-assembly-2.5.0.jar`에 파일이 만들어진다
 
-만약 opensearchZip을 빌드할 때 사용하는 opensearch의 버전을 올리고 싶으면 `zip-builder.sh`의 다음 두 부분의 2.3.0을 변경하면 된다
+만약 opensearchZip을 빌드할 때 사용하는 opensearch의 버전을 올리고 싶으면 `zip-builder.sh`의 다음 두 부분의 2.5.0을 변경하면 된다
 ```sbt
-sed -i '/val opensearchVersion = "1.0.0"/c\val opensearchVersion = "2.3.0"' build.sbt
-sed -i '/val opensearchJarVersion = "1.0.0-beta1"/c\val opensearchJarVersion = "2.3.0"' build.sbt
+sed -i '/val opensearchVersion = "1.0.0"/c\val opensearchVersion = "2.5.0"' build.sbt
+sed -i '/val opensearchJarVersion = "1.0.0-beta1"/c\val opensearchJarVersion = "2.5.0"' build.sbt
 ```
 
 # Original Projects
